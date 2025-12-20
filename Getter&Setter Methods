@@ -1,0 +1,29 @@
+class Car {
+    private String name;
+    private String colour;
+    private int mileage;
+    Car(String name, String colour, int mileage) {
+        this.name = name;
+        this.colour = colour;
+        this.mileage = mileage;
+    }
+    public String getName() {
+        return name;
+    }
+
+    public String getColour() {
+        return colour;
+    }
+
+    public int getMileage() {
+        return mileage;
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Car c = new Car("BMW", "Black", 34);
+        System.out.println("Car name: " + c.getName());
+        System.out.println("Car colour: " + c.getColour());
+        System.out.println("Car mileage: " + c.getMileage());
+    }
+}
