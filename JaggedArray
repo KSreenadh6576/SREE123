@@ -1,0 +1,20 @@
+public class Jagged3DArray {
+    public static void main(String[] args) {
+        int[][][] schools = new int[2][][];
+        schools[0] = new int[2][];
+        schools[0][0] = new int[]{10, 20};
+        schools[0][1] = new int[]{30, 40, 50};
+        schools[1] = new int[1][];
+        schools[1][0] = new int[]{60, 70, 80, 90};
+        for (int i = 0; i < schools.length; i++) {
+            System.out.println("School " + (i + 1));
+            for (int j = 0; j < schools[i].length; j++) {
+                System.out.print("  Class " + (j + 1) + ": ");
+                for (int k = 0; k < schools[i][j].length; k++) {
+                    System.out.print(schools[i][j][k] + " ");
+                }
+                System.out.println();
+            }
+        }
+    }
+}
