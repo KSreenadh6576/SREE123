@@ -1,0 +1,45 @@
+class Pattern {
+    public static void main(String[] args) {
+
+        int n = 4;   
+        int w = 7;   
+
+        for (int i = 1; i <= n; i++) {
+
+            for (int space = n - i; space > 0; space--) {
+                System.out.print(" ");
+            }
+
+            if (i == 1) {
+                System.out.print("*");
+            } 
+            else if (i == n) {
+                for (int k = 1; k <= w; k++) {
+                    System.out.print("*");
+                }
+            } 
+            else {
+                System.out.print("*");
+                for (int j = 1; j <= 2 * i - 3; j++) {
+                    System.out.print(" ");
+                }
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+
+        for (int i = 1; i <= 3; i++) {
+            System.out.print("|");
+            for (int j = 1; j <= w - 2; j++) {
+                System.out.print(" ");
+            }
+            System.out.println("|");
+        }
+
+        System.out.print("|");
+        for (int i = 1; i <= w - 2; i++) {
+            System.out.print("_");
+        }
+        System.out.println("|");
+    }
+}
