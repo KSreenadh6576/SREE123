@@ -1,0 +1,152 @@
+import java.util.*;
+public class ATM {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        Bank bank = new Bank("State Bank Of India");
+
+        // create user with SIMPLE ID
+        User user = new User("1001", "Aarsh", "1111");
+        bank.addUser(user);
+
+        user.addAccount(new Account("Savings"));
+
+        while (true) {
+            User currentUser = login(bank, sc);
+            userMenu(currentUser, sc);
+        }
+    }
+
+    static User login(Bank bank, Scanner sc) {
+
+        String id, pin;
+        User user;
+
+        do {
+            System.out.println("\nWelcome to " + bank.getName());
+            System.out.print("Enter User ID: ");
+            id = sc.nextLine();
+
+            System.out.print("Enter PIN: ");
+            pin = sc.nextLine();
+
+            user = bank.validateUser(id, pin);
+
+            if (user == null)
+                System.out.println("Invalid ID or PIN");
+
+        } while (user == null);
+
+        return user;
+    }
+
+    static void userMenu(User user, Scanner sc) {
+
+        int choice;
+        do {
+            System.out.println("\n1.Deposit  2.Withdraw  3.Balance  4.Quit");
+            System.out.print("Choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1 -> {
+                    System.out.print("Amount: ");
+                    double amt = sc.nextDouble();
+                    user.getAccount().deposit(amt);
+                }
+                case 2 -> {
+                    System.out.print("Amount: ");
+                    double amt = sc.nextDouble();
+                    user.getAccount().withdraw(amt);
+                }
+                case 3 -> System.out.println("Balance: " + user.getAccount().getBalance());
+                case 4 -> System.exit(0);
+            }
+        } while (choice != 4);
+    }
+}
+class Bank {
+
+    private String name;
+    private ArrayList<User> users = new ArrayList<>();
+
+    Bank(String name) {
+        this.name = name;
+    }
+
+    String getName() {
+        return name;
+    }
+
+    void addUser(User user) {
+        users.add(user);
+    }
+
+    User validateUser(String id, String pin) {
+        for (User u : users) {
+            if (u.getUserId().equals(id) && u.getPin().equals(pin))
+                return u;
+        }
+        return null;
+    }
+}
+class User {
+
+    private String userId;
+    private String name;
+    private String pin;
+    private Account account;
+
+    User(String userId, String name, String pin) {
+        this.userId = userId;
+        this.name = name;
+        this.pin = pin;
+    }
+
+    String getUserId() {
+        return userId;
+    }
+
+    String getPin() {
+        return pin;
+    }
+
+    void addAccount(Account acc) {
+        this.account = acc;
+    }
+
+    Account getAccount() {
+        return account;
+    }
+}
+class Account {
+
+    private String type;
+    private double balance;
+
+    Account(String type) {
+        this.type = type;
+        balance = 0;
+    }
+
+    void deposit(double amt) {
+        balance += amt;
+        System.out.println("Deposited: " + amt);
+    }
+
+    void withdraw(double amt) {
+        if (amt <= balance) {
+            balance -= amt;
+            System.out.println("Withdrawn: " + amt);
+        } else {
+            System.out.println("Insufficient balance");
+        }
+    }
+
+    double getBalance() {
+        return balance;
+    }
+}
+
